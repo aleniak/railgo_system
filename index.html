@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Монитор риска поломок вагонов</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand-block logo-only">
+        <img src="logo.png" alt="RailGo logo" class="brand-logo-large" />
+      </div>
+
+      <div class="summary-cards" id="summaryCards"></div>
+
+      <div class="filter-block">
+        <input id="searchInput" type="text" placeholder="Поиск по вагону, стране или станции" />
+        <select id="riskFilter">
+          <option value="all">Все уровни риска</option>
+          <option value="High">Высокий риск</option>
+          <option value="Medium">Средний риск</option>
+          <option value="Low">Низкий риск</option>
+        </select>
+      </div>
+
+      <div class="location-list" id="locationList"></div>
+    </aside>
+
+    <main class="content">
+      <section class="hero-card compact-hero">
+        <div>
+          <div class="eyebrow">Карточка вагона</div>
+          <h2 id="wagonTitle">Выберите вагон</h2>
+          <p id="wagonSubtitle" class="muted">Нажмите на вагон слева, чтобы посмотреть прогноз и факторы риска.</p>
+        </div>
+        <div class="hero-controls">
+          <div class="horizon-toggle" id="horizonToggle">
+            <button class="toggle-btn active" data-horizon="14">Прогноз 14 дней</button>
+            <button class="toggle-btn" data-horizon="90">Прогноз 90 дней</button>
+          </div>
+          <div class="legend">
+            <span class="pill high">Высокий</span>
+            <span class="pill medium">Средний</span>
+            <span class="pill low">Низкий</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="top-grid compact-grid top-grid-2">
+        <article class="card compact-card">
+          <h3 id="riskBlockTitle">Прогноз риска · 14 дней</h3>
+          <div class="risk-grid single-risk-grid">
+            <div class="risk-stat"><span id="riskLabel">Вероятность поломки</span><strong id="riskMain">—</strong></div>
+            <div class="risk-stat"><span id="predLabel">Класс прогноза</span><strong id="predMain">—</strong></div>
+          </div>
+        </article>
+
+        <article class="card compact-card">
+          <h3>Текущий контекст</h3>
+          <div class="kv-list" id="contextList"></div>
+        </article>
+      </section>
+
+      <section class="grid one-col compact-grid">
+        <article class="card compact-card">
+          <h3 id="factorsTitle">Факторы риска · 14 дней</h3>
+          <div id="driversMain" class="driver-list"></div>
+
+          <h4>SHAP-факторы модели</h4>
+          <div id="shapMain" class="shap-chart"></div>
+
+          <h4>Группы факторов</h4>
+          <div id="groupsMain" class="group-list"></div>
+        </article>
+      </section>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
